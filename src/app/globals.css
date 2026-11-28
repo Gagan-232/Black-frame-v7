@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { background: #000; scroll-behavior: smooth; }
+body { @apply bg-ink text-bone font-sans antialiased; }
+::selection { background: #8b2a2a; color: #fff; }
+
+@layer components {
+  .btn { @apply inline-flex min-h-[44px] items-center justify-center gap-2 border border-bone bg-bone px-5 py-3 text-sm font-medium tracking-wide text-ink transition hover:bg-transparent hover:text-bone disabled:cursor-not-allowed disabled:opacity-40; }
+  .btn-ghost { @apply inline-flex min-h-[44px] items-center justify-center gap-2 border border-bone/60 bg-transparent px-5 py-3 text-sm font-medium tracking-wide text-bone transition hover:bg-bone hover:text-ink disabled:cursor-not-allowed disabled:opacity-40; }
+  .btn-danger { @apply inline-flex min-h-[44px] items-center justify-center gap-2 border border-blood bg-blood px-5 py-3 text-sm font-medium tracking-wide text-bone transition hover:bg-transparent disabled:opacity-40; }
+  .btn-sm { @apply min-h-[34px] px-3 py-1 text-xs; }
+  .input { @apply min-h-[44px] w-full border border-line bg-panel px-4 py-3 text-bone placeholder:text-mute focus:border-bone focus:outline-none; }
+  .card { @apply border border-line bg-panel/70 p-5 sm:p-6; }
+  .label { @apply mb-1 block text-xs uppercase tracking-widest text-mute; }
+  .h1 { @apply font-serif text-4xl tracking-wide sm:text-5xl; }
+  .h2 { @apply font-serif text-2xl tracking-wide sm:text-3xl; }
+  .frame { @apply relative border border-bone/70; }
+  .frame::after { content: ''; position: absolute; inset: 5px; border: 1px solid rgba(242, 242, 242, 0.22); pointer-events: none; }
+  .alert-err { @apply border border-blood bg-blood/15 px-4 py-3 text-sm; }
+  .alert-ok { @apply border border-bone/40 bg-bone/5 px-4 py-3 text-sm; }
+  .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
+}
+
+/* ---------- Studio intro ---------- */
+#bf-intro { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; background: #000; transition: opacity 0.7s ease; }
+html[data-intro='1'] #bf-intro { display: flex; }
+html[data-intro='1'] body { overflow: hidden; }
+#bf-intro.intro-out { opacity: 0; pointer-events: none; }
+.intro-stage { position: relative; width: min(88vw, 760px); aspect-ratio: 840 / 460; }
+.intro-draw { stroke-dasharray: 2600; stroke-dashoffset: 2600; animation: introDraw 1.9s 0.3s ease-in-out forwards; }
+.intro-draw.d2 { animation-delay: 0.6s; }
+.intro-word { opacity: 0; animation: introUp 1s 1.8s ease forwards; }
+.intro-sub { opacity: 0; animation: introUp 1s 2.5s ease forwards; }
+.intro-build { animation: introFade 0.8s 3.4s ease forwards; }
+.intro-final { opacity: 0; animation: introIn 0.9s 3.4s ease forwards; }
+@keyframes introDraw { to { stroke-dashoffset: 0; } }
+@keyframes introUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes introFade { to { opacity: 0; } }
+@keyframes introIn { to { opacity: 1; } }
+@keyframes pulseSlow { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+.pulse-slow { animation: pulseSlow 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .pulse-slow { animation: none; } }
