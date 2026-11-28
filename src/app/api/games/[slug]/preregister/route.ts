@@ -27,4 +27,4 @@ export const POST = route(async (_req, { params }) => {
   // UNIQUE (user_id, game_id) + ON CONFLICT makes concurrent/repeated requests safe.
   const inserted = await q1(`INSERT INTO pre_registrations (user_id, game_id) VALUES ($1, $2) ON CONFLICT (user_id, game_id) DO NOTHING RETURNING id`, [user.id, g.id]);
   return ok(inserted ? { state: 'registered', message: 'Pre-registration successful.', created: true } : { state: 'registered', message: 'You are already pre-registered.' }, inserted ? 201 : 200);
-})
+});
